@@ -1,9 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
+import Loading from './Loading';
 import './Table.css';
 
 function Table() {
-  const { planets } = useContext(PlanetsContext);
+  const { getPlanets, planets, loading } = useContext(PlanetsContext);
+
+  useEffect(() => {
+    getPlanets();
+  }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <div>
