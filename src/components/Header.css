@@ -14,3 +14,7 @@
   color: #ffe81f;
   padding: 1.5rem 0.25rem;
 }
+
+.header form {
+  padding: 0.5rem;
+}

@@ -30,17 +30,27 @@ function Header() {
           <select
             name="input-column"
             id="input-column"
-            options
+            data-testid="column-filter"
           >
-            <option value="Population">Population</option>
+            <option value="population">population</option>
+            <option value="orbital_period">orbital_period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period">rotation_period</option>
+            <option value="surface_water">surface_water</option>
           </select>
         </label>
 
         <label htmlFor="input-operator">
           Operador:
           {' '}
-          <select name="input-operator" id="">
+          <select
+            name="input-operator"
+            id=""
+            data-testid="comparison-filter"
+          >
             <option value=">">Maior que</option>
+            <option value="<">Menor que</option>
+            <option value="===">igual a</option>
           </select>
         </label>
 
@@ -48,14 +58,16 @@ function Header() {
           <input
             type="number"
             name="input-number"
+            data-testid="value-filter"
           />
         </label>
 
         <button
           type="button"
           name="filterButton"
+          data-testid="button-filter"
         >
-          filterButton
+          Adiciona filtros
         </button>
 
         <label htmlFor="orderBy-input">
