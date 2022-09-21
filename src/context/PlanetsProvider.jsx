@@ -5,6 +5,7 @@ import PlanetsContext from './PlanetsContext';
 function PlanetsProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [planets, setPlanets] = useState([]);
+  const [planetInput, setPlanetInput] = useState('');
 
   const getPlanets = async () => {
     try {
@@ -27,6 +28,8 @@ function PlanetsProvider({ children }) {
     planets,
     loading,
     getPlanets,
+    planetInput,
+    setPlanetInput,
   };
 
   return (

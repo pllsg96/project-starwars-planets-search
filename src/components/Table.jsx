@@ -4,7 +4,7 @@ import Loading from './Loading';
 import './Table.css';
 
 function Table() {
-  const { getPlanets, planets, loading } = useContext(PlanetsContext);
+  const { getPlanets, planets, loading, planetInput } = useContext(PlanetsContext);
 
   useEffect(() => {
     getPlanets();
@@ -33,25 +33,29 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {planets.map((planet, index) => (
-            <tr key={ index }>
-              <td>{planet.name}</td>
-              <td>{planet.rotation_period}</td>
-              <td>{planet.orbital_period}</td>
-              <td>{planet.diameter}</td>
-              <td>{planet.climate}</td>
-              <td>{planet.gravity}</td>
-              <td>{planet.terrain}</td>
-              <td>{planet.surface_water}</td>
-              <td>{planet.population}</td>
-              <td>{planet.films}</td>
-              <td>{planet.created}</td>
-              <td>{planet.edited}</td>
-              <td>{planet.url}</td>
+          {
+            (planets.filter((planet) => (planet.name.toLowerCase())
+              .includes(planetInput.toLowerCase())))
+              .map((planet, index) => (
+                <tr key={ index }>
+                  <td>{planet.name}</td>
+                  <td>{planet.rotation_period}</td>
+                  <td>{planet.orbital_period}</td>
+                  <td>{planet.diameter}</td>
+                  <td>{planet.climate}</td>
+                  <td>{planet.gravity}</td>
+                  <td>{planet.terrain}</td>
+                  <td>{planet.surface_water}</td>
+                  <td>{planet.population}</td>
+                  <td>{planet.films}</td>
+                  <td>{planet.created}</td>
+                  <td>{planet.edited}</td>
+                  <td>{planet.url}</td>
 
-            </tr>
+                </tr>
 
-          ))}
+              ))
+          }
         </tbody>
 
       </table>
