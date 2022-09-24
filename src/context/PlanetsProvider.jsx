@@ -7,6 +7,14 @@ function PlanetsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [planetInput, setPlanetInput] = useState('');
 
+  const [allFilters, setAllFilters] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: 0,
+  });
+
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
   const getPlanets = async () => {
     try {
       setLoading(true);
@@ -28,6 +36,11 @@ function PlanetsProvider({ children }) {
     planets,
     loading,
     getPlanets,
+    selectedFilters,
+    setSelectedFilters,
+    allFilters,
+    setAllFilters,
+
     planetInput,
     setPlanetInput,
   };

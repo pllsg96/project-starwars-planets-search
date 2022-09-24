@@ -4,7 +4,13 @@ import Loading from './Loading';
 import './Table.css';
 
 function Table() {
-  const { getPlanets, planets, loading, planetInput } = useContext(PlanetsContext);
+  const {
+    getPlanets,
+    planets,
+    loading,
+    selectedFilters,
+    planetInput,
+  } = useContext(PlanetsContext);
 
   useEffect(() => {
     getPlanets();
@@ -34,8 +40,36 @@ function Table() {
         </thead>
         <tbody>
           {
-            (planets.filter((planet) => (planet.name.toLowerCase())
-              .includes(planetInput.toLowerCase())))
+            (planets
+              .filter((planet) => (planet.name.toLowerCase())
+                .includes(planetInput.toLowerCase())))
+              .filter((planet) => {
+                const bools = [];
+                selectedFilters.forEach((filter) => {
+                  switch (filter.comparison) {
+                  case 'maior que':
+                    bools.push(
+                      (Number(planet[filter.column]) > Number(filter.value)),
+                    );
+                    break;
+                  case 'menor que':
+                    bools.push(
+                      (Number(planet[filter.column]) < Number(filter.value)),
+                    );
+                    break;
+                  case 'igual a':
+                    bools.push(
+                      (Number(planet[filter.column]) === Number(filter.value)),
+                    );
+                    break;
+
+                  default:
+                    return true;
+                  }
+                });
+
+                return bools.every((el) => el);
+              })
               .map((planet, index) => (
                 <tr key={ index }>
                   <td>{planet.name}</td>

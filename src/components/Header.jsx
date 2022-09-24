@@ -3,7 +3,18 @@ import PlanetsContext from '../context/PlanetsContext';
 import './Header.css';
 
 function Header() {
-  const { planetInput, setPlanetInput } = useContext(PlanetsContext);
+  const {
+    selectedFilters,
+    setSelectedFilters,
+    allFilters,
+    setAllFilters,
+    planetInput,
+    setPlanetInput,
+  } = useContext(PlanetsContext);
+
+  const handleAllFilters = () => {
+    setSelectedFilters((prevState) => [...prevState, allFilters]);
+  };
 
   return (
     <div className="header">
@@ -17,8 +28,8 @@ function Header() {
             name="input-planet"
             data-testid="name-filter"
             value={ planetInput }
-            onChange={ (event) => {
-              setPlanetInput(event.currentTarget.value);
+            onChange={ ({ target }) => {
+              setPlanetInput(() => target.value);
             } }
           />
         </label>
@@ -31,6 +42,10 @@ function Header() {
             name="input-column"
             id="input-column"
             data-testid="column-filter"
+            value={ allFilters.column }
+            onChange={ ({ target }) => {
+              setAllFilters((prevState) => ({ ...prevState, column: target.value }));
+            } }
           >
             <option value="population">population</option>
             <option value="orbital_period">orbital_period</option>
@@ -45,12 +60,16 @@ function Header() {
           {' '}
           <select
             name="input-operator"
-            id=""
+            id="comparison-filter"
             data-testid="comparison-filter"
+            value={ allFilters.comparison }
+            onChange={ ({ target }) => {
+              setAllFilters((prevState) => ({ ...prevState, comparison: target.value }));
+            } }
           >
-            <option value=">">Maior que</option>
-            <option value="<">Menor que</option>
-            <option value="===">igual a</option>
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
+            <option value="igual a">igual a</option>
           </select>
         </label>
 
@@ -59,6 +78,10 @@ function Header() {
             type="number"
             name="input-number"
             data-testid="value-filter"
+            value={ allFilters.value }
+            onChange={ ({ target }) => {
+              setAllFilters((prevState) => ({ ...prevState, value: target.value }));
+            } }
           />
         </label>
 
@@ -66,6 +89,7 @@ function Header() {
           type="button"
           name="filterButton"
           data-testid="button-filter"
+          onClick={ handleAllFilters }
         >
           Adiciona filtros
         </button>
@@ -94,9 +118,19 @@ function Header() {
         <button
           type="button"
           name="removeFilterButton"
+          onClick={ () => (setSelectedFilters(() => [])) }
         >
           Remover Filtros
         </button>
+
+        {selectedFilters.map((filter, index) => (
+          <div key={ index }>
+            <span>
+              {filter.column}
+              {filter.value}
+            </span>
+          </div>
+        ))}
 
       </form>
     </div>
