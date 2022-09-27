@@ -139,7 +139,11 @@ function Header() {
         </button>
 
         {selectedFilters.map((filter, index) => (
-          <div key={ index } className="divAppliedFilter">
+          <div
+            key={ index }
+            className="divAppliedFilter"
+            data-testid="filter"
+          >
             <span>
               {filter.column}
               {' '}
@@ -149,8 +153,11 @@ function Header() {
             </span>
             <button
               type="button"
-              onClick={ console.log('uoll') }
-              data-testid="filter"
+              onClick={ () => {
+                const qlqrNome = [...selectedFilters];
+                qlqrNome.splice(index, 1);
+                setSelectedFilters(qlqrNome);
+              } }
             >
               x
             </button>
