@@ -67,7 +67,6 @@ function Table() {
                     return true;
                   }
                 });
-
                 return bools.every((el) => el);
               })
               .map((planet, index) => (

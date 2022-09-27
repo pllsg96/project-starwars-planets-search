@@ -18,3 +18,18 @@
 .header form {
   padding: 0.5rem;
 }
+
+.divAppliedFilter {
+  border: #ffe81f solid 2px;
+  color: #ffe81f;
+  padding: 0.25rem;
+}
+
+.divAppliedFilter button {
+  background-color: black;
+  border: #ffe81f solid 2px;
+  border-radius: 10%;
+  color: #ffe81f;
+  padding: 0.25rem;
+}
+

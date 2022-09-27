@@ -16,6 +16,14 @@ function Header() {
     setSelectedFilters((prevState) => [...prevState, allFilters]);
   };
 
+  const columnOptions = [
+    'orbital_period',
+    'population',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+
   return (
     <div className="header">
       <h1>Projeto Star Wars</h1>
@@ -47,11 +55,17 @@ function Header() {
               setAllFilters((prevState) => ({ ...prevState, column: target.value }));
             } }
           >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+
+            {columnOptions.filter((option) => (
+              !selectedFilters.find((filter) => option === filter.column)
+            )).map((op) => (
+              <option
+                key={ op }
+                value={ op }
+              >
+                {op}
+              </option>
+            ))}
           </select>
         </label>
 
@@ -118,17 +132,28 @@ function Header() {
         <button
           type="button"
           name="removeFilterButton"
+          data-testid="button-remove-filters"
           onClick={ () => (setSelectedFilters(() => [])) }
         >
           Remover Filtros
         </button>
 
         {selectedFilters.map((filter, index) => (
-          <div key={ index }>
+          <div key={ index } className="divAppliedFilter">
             <span>
               {filter.column}
+              {' '}
+              {filter.comparison}
+              {' '}
               {filter.value}
             </span>
+            <button
+              type="button"
+              onClick={ console.log('uoll') }
+              data-testid="filter"
+            >
+              x
+            </button>
           </div>
         ))}
 
